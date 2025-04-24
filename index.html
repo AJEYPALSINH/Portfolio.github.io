@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJEYPALSINH PORTFOLIO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+     <style>
+        /* Three-dot menu styles */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            cursor: pointer;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .menu-btn span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: white;
+            margin: 2px 0;
+        }
+        
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 250px;
+            height: 100%;
+            background: #2a2a2a;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            padding: 60px 20px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        }
+        
+        .sidebar.open {
+            right: 0;
+        }
+        
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar a:hover {
+            background: #007bff;
+        }
+        
+        /* Overlay when sidebar is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9997;
+            display: none;
+        }
+    </style>
+    <style>
+        :root {
+            --neon-blue: #0ff0fc;
+            --neon-pink: #ff2a6d;
+            --dark: #0d0221;
+            --darker: #04052e;
+            --terminal-green: #00ff41;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark);
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated Background */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 65, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        header {
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(13, 2, 33, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            gap: 2rem;
+            margin: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--neon-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: var(--neon-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--neon-blue);
+            color: var(--dark);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(15, 240, 252, 0.4), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 3px;
+        }
+
+        /* About Section */
+        .about-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(15, 240, 252, 0.2);
+            box-shadow: 0 0 30px rgba(15, 240, 252, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .about-content:hover {
+            box-shadow: 0 0 40px rgba(15, 240, 252, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(15, 240, 252, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(15, 240, 252, 0.2);
+        }
+
+        .skill-category h3 {
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-category ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-category ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+        }
+
+        /* Projects Section */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(15, 240, 252, 0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(15, 240, 252, 0.1),
+                rgba(255, 42, 109, 0.1),
+                rgba(15, 240, 252, 0.1)
+            );
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(15, 240, 252, 0.2);
+        }
+
+        .project-card:hover::before {
+            animation: shine 1.5s;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -50%;
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                left: 150%;
+                opacity: 0;
+            }
+        }
+
+        .project-card h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-small {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-small:hover {
+            background: var(--neon-blue);
+            color: var(--dark);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* Education Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            height: 100%;
+            width: 2px;
+            background: var(--neon-blue);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(15, 240, 252, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(15, 240, 252, 0.2);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: -40px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .timeline-item h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: #ccc;
+            margin: 0;
+        }
+
+        /* Experience Section */
+        .experience-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(15, 240, 252, 0.2);
+            transition: all 0.5s ease;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(15, 240, 252, 0.2);
+        }
+
+        .experience-item h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .company {
+            color: var(--neon-blue);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .experience-item ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .experience-item ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+        }
+
+        /* Contact Section */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(15, 240, 252, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            background: var(--neon-blue);
+            color: var(--dark);
+            box-shadow: 0 0 20px var(--neon-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(13, 2, 33, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(15, 240, 252, 0.2);
+        }
+
+        footer p {
+            margin: 0;
+            color: #ccc;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+            
+            .skills-grid, .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+ <!-- Three-dot menu button -->
+    <div class="menu-btn" id="menuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <!-- Sidebar navigation -->
+    <div class="sidebar" id="sidebar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#softskills">Soft Skills</a>
+        <a href="#skills">Skills</a>
+        <a href="#Certification">Certification</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+    </div>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    <script>
+        // Toggle sidebar
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        menuBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+        });
+        
+        // Close sidebar when clicking overlay
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            overlay.style.display = 'none';
+        });
+        
+        // Close sidebar when clicking a link
+        const navLinks = document.querySelectorAll('.sidebar a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.style.display = 'none';
+            });
+        });
+    </script>
+    <!-- Animated Background Particles -->
+    <div class="bg-particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#Softskills">Soft Skills</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#Certification">Certification</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm <span class="highlight">Ajeypalsinh Jadeja</span></h1>
+            <h2>Cybersecurity Graduate | Network Administrator</h2>
+            <p>B.Sc in IT Cybersecurity | Pursuing Master's | OSCP Aspirant</p>
+            <a href="#contact" class="btn">Hire Me</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>
+                A graduate in Information Technology & Cyber Security, currently pursuing a Master’s degree in the same field. With 3 months of internship experience as a Network Administrator, I have gained hands-on skills in network security, systemadministration, and troubleshooting. Proficient in using security tools and understanding network infrastructures. Eager toapply my academic knowledge and practical experience to a challenging cyber security role. Actively seeking opportunitiesto contribute to securing digital environments and enhancing organizational security.
+            </p>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section id="Languages" class="section">
+        <h2>Languages</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3><i class="fas fa-certificate"></i>Cybersecurity</h3>
+                <ul>
+                    <li>English</li>
+                    <li>Hindi</li>
+                    <li>Gujrati</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soft Skills Section -->
+    <section id="Softskills" class="section">
+        <h2>Soft Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3><i class="fas fa-certificate"></i>Cybersecurity</h3>
+                <ul>
+                    <li>Communication</li>
+                    <li>Problem Solving</li>
+                    <li>Team Building</li>
+                    <li>Leadership</li>
+                    <li>Decision Making</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3><i class="fas fa-lock"></i>Cybersecurity</h3>
+                <ul>
+                    <li>Vulnerability Assessment and Penetration Testing</li>
+                    <li>Tools:Nmap/Zenmap,Burp-Suite,Nessus,Wireshark,Sqlmap,Metasploit,Packet Tracer</li>
+                    <li>Digital Forensics:i)Autopsy ii)FTK Imager</li>
+                    <li>Programming language:Python,SQL,HTML,CSS</li>
+                    <li>Operating System:Linux,Windows</li>
+                    <li>Networking</li>
+                    <li>Canva</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+        <!-- Certification Section -->
+    <section id="Certification" class="section">
+        <h2>Certification</h2>
+            <div class="skill-category">
+                <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                <ul>
+                    <li>Cloud Tech Fundamentals</li>
+                    <li>Network DefenseEssentials(NDE)</li>
+                    <li>Career Essentials in Cybersecurity by Microsoft and LinkedIn</li>
+                    <li>Linux Tutorial</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <center>
+            <div class="project-card">
+                <h3>Keylogger</h3>
+                <p>B.Sc.IT Cyber Security 5th Semester</p>
+                <p>Sep 2022 - Dec 2022</p>
+                <p>Developed a Keylogger project during my B.Sc. IT Cybersecurity (5th semester) to understand how keylogging tools operate and how to detect them. Built using Python for educational purposes in a controlled environment. Focused on ethical hacking, system security, and malware awareness.</p>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\B.Sc.IT Cyber Security 5th Sem Project.pptx" class="btn-small">View <i class="fas fa-book-open"></i></a>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\B.Sc.IT Cyber Security 5th Sem Project.pdf" class="btn-small">Read <i class="fas fa-book-open"></i></a>
+            </div>
+            <br>
+            <div class="project-card">
+                <h3>Vulnerabillity Assessment and Penetration Testing</h3>
+                <p>B.Sc.IT Cyber Security 6th Semester</p>
+                <p>Jan 2023 - May 2023</p>
+                <p>Completed a Vulnerability Assessment and Penetration Testing (VAPT) project as part of my B.Sc. IT Cybersecurity (6th semester). Conducted security assessments on web applications and networks using tools like Nmap, Burp Suite,Wapplyzer. Focused on identifying vulnerabilities, analyzing risks, and recommending mitigation strategies—following ethical hacking practices.</p>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\B.Sc.IT Cyber Security 6th Sem Project.pptx" class="btn-small">View <i class="fas fa-eye"></i></a>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\B.Sc.IT Cyber Security 6th Sem Project.pdf" class="btn-small">Read <i class="fas fa-book-open"></i></a>
+            </div>
+            <br>
+            <div class="project-card">
+                <h3>Vulnerabillity Assessment and Penetration Testing</h3>
+                <p>M.Sc.IT Cyber Security 3rd Semester</p>
+                <p>Sep 2024 - Dec 2024</p>
+                <p>Completed a Vulnerability Assessment and Penetration Testing (VAPT) project as part of my M.Sc. IT Cybersecurity (3rd semester). Conducted security assessments on web applications and networks using tools like Nmap, Burp Suite,Wapplyzer. Focused on identifying vulnerabilities, analyzing risks, and recommending mitigation strategies—following ethical hacking practices.</p>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\M.Sc.IT Cyber Security 3rd Sem Project.pptx" class="btn-small">View <i class="fas fa-eye"></i></a>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\M.Sc.IT Cyber Security 3rd Sem Project.pdf" class="btn-small">Read <i class="fas fa-book-open"></i></a>
+            </div>
+            <br>
+            <div class="project-card">
+                <h3>A Secure Communication Network</h3>
+                <p>M.Sc.IT Cyber Security 4th Semester</p>
+                <p>Jan 2025 - Apr 2025</p>
+                <p>As part of my M.Sc. IT (4th semester), I developed a Secure Communication Network project focused on building a robust, enterprise-style infrastructure. The project involved configuring a Windows Server, setting up firewalls, integrating a NAS (Network Attached Storage) system, and managing router configurations. I also migrated systems from a Workgroup to a Domain model to enhance centralized security and management. The aim was to ensure secure communication, better resource control, and network reliability. This project reflects hands-on experience in network security, server administration, and domain management.</p>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\M.Sc.IT Cyber Security 4th Sem Project.pptx" class="btn-small">View <i class="fas fa-eye"></i></a>
+                <a href="C:\Users\admin\Desktop\my-portfolio\project\M.Sc.IT Cyber Security 4th Sem Project.pdf" class="btn-small">Read <i class="fas fa-book-open"></i></a>
+            </div>
+        </center>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <h2>Education</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Master's in Cybersecurity</h3>
+                <p>Ganpat University | 2023 - 2025</p>
+                <p>CGPA: 7.8/10 (III-Sem)</p>
+                <p>Mehsana, Gujrat</p>
+            </div>
+            <div class="timeline-item">
+                <h3>B.Sc in IT Cybersecurity</h3>
+                <p>Ganpat University | 2020 - 2023</p>
+                <p>CGPA: 7.7/10</p>
+                <p>Mehsana, Gujrat</p>
+            </div>
+            <div class="timeline-item">
+                <h3>12th Science</h3>
+                <p>Shree Krishna Kuvarba School Of Science | March-2020</p>
+                <p>PR: 62.16</p>
+                <p>Deodar, Gujrat</p>
+            </div>
+            <div class="timeline-item">
+                <h3>10th Board</h3>
+                <p>V.K.vaghela High School | March-2018</p>
+                <p>PR: 74.45</p>
+                <p>Deodar, Gujrat</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <h2>Experience</h2>
+        <div class="experience-item">
+            <h3>Network Administrator</h3>
+            <p class="company">LuckyIT CyberSecurity | Feb 2025 - Apr 2025</p>
+            <ul>
+                <li>3 months of experience as a Network Administrator at LuckyIT CyberSecurity Company.</li>
+                <li>Managed and maintained network systems, ensuring optimal performanceand security.</li>
+                <li>Monitored network security, identifying vulnerabilities and implementingsolutions.</li>
+                <li>Assisted in troubleshooting and resolving network-related issues.</li>
+                <li>Gained hands-on experience in configuring network devices and securityprotocols.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2>Let's Connect!</h2>
+        <div class="contact-links">
+            <a href="tel:+919016291053"><i class="fas fa-phone"></i> Call</a>
+            <a href="mailto:ajaypalsinh4172@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+            <a href="https://linkedin.com/in/ajeypalsinh-jadeja"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/AJEYPALSINH"><i class="fab fa-github"></i> GitHub</a>
+            <a href="C:\Users\admin\Desktop\my-portfolio\resume\AJEYPALSINH CV.pdf"><i class="fas fa-file-pdf"></i> Resume</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 AJEYPALSINH JADEJA. Built with ❤️ for cybersecurity.</p>
+    </footer>
+
+    <script>
+        // Particle Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Scroll animations
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'all 0.6s ease-out';
+                observer.observe(section);
+            });
+            
+            // Navigation active state
+            const navLinks = document.querySelectorAll('nav ul li a');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Add floating animation to project cards
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.5s ease-out';
+                
+                const cardObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                });
+                
+                cardObserver.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
